@@ -2,7 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Models\User;
+use App\Notifications\TestNotification;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -25,4 +26,9 @@ Route::get('email-test', function(){
     dispatch(new App\Jobs\SendEmailJob($details));
     
     dd('done');
+    });
+
+    Route::get('notify', function(){
+        $user = User::first();
+        $user->notify(new TestNotification($user));
     });
